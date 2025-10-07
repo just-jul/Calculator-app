@@ -25,3 +25,19 @@ function operate(opr, num1, num2){
         divide(num1, num2);
     }
 }
+
+const addBtn = document.querySelector(".add");
+const substrBtn = document.querySelector(".substr");
+const multBtn = document.querySelector(".multiply");
+const divideBtn = document.querySelector(".divide");
+const equalBtn = document.querySelector(".equal");
+
+const seven = document.querySelector(".seven");
+const eight = document.querySelector(".eight");
+const nine = document.querySelector(".nine");
+const four = document.querySelector(".four");
+const five = document.querySelector(".five");
+const six = document.querySelector(".six");
+const one = document.querySelector(".one");
+const two = document.querySelector(".two");
+const three = document.querySelector(".three");
