@@ -17,12 +17,20 @@ body {
     align-items: center;
 }
 
-.result{
+.result-container{
     height: 150px;
     background-color: rgb(238, 238, 238);
     margin: 16px;
     width: 368px;
+    padding: 8px;
+}
 
+.result-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    white-space: normal;
+    overflow-wrap: break-word;
+    max-width: 368px;
 }
 
 .buttons{
