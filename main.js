@@ -92,7 +92,7 @@ numberBtn.forEach(btn => {
 
 operator.forEach(btn => {
     btn.onclick = () => {
-        const lastChar = resultText.textContent.slice(-1);
+        const lastChar = resultText.textContent.slice(-1); // get last input character
         const currentOp = btn.textContent;
 
         // Only add the operator if the last char is not another operator
@@ -101,18 +101,19 @@ operator.forEach(btn => {
         }
 
         if (num1 !== '' && currentOperator !== '' && num2 !== ''){
-            const result = calculate(num1, num2, currentOperator);
+            const operation = getOperationName(currentOp);
+            const result = operate(operation, num1, num2);
 
             resultText.innerText = result + currentOp;
 
-            num1 = result.toString();
-            num2 = '';
-            currentOperator = currentOp;
-            isNum2 = true;
-        }else{
+            num1 = result.toString(); // store result as the new first number
+            num2 = ''; // reset the second number 
+            currentOperator = currentOp; // store the new operator the user just clicked
+            isNum2 = true; // signal that we are now typing the second number
+        }else{ // if there's not enough info - user only typed in 1st number
             resultText.textContent += currentOp;
             currentOperator = currentOp;
-            isNum2 = true;
+            isNum2 = true; // start listening for second number
         }
     };
 });
