@@ -1,3 +1,12 @@
+const equalBtn = document.querySelector(".equal");
+const clearBtn = document.querySelector(".clear");
+const resultText = document.querySelector(".result-text");
+
+const numberBtn = document.querySelectorAll(".number");
+const btn = document.querySelectorAll(".btn");
+const operator = document.querySelectorAll(".operator");
+
+
 function add(num1, num2){
     return num1 + num2;
 }
@@ -14,65 +23,124 @@ function divide(num1, num2){
     return num1/num2;
 }
 
-function operate(opr, num1, num2){
-    if (opr === "add"){
-        add(num1, num2);
-    }else if(opr === "substract"){
-        substract(num1, num2);
-    }else if(opr === "multiply"){
-        multiply(num1, num2);
-    }else if (opr === "divide"){
-        divide(num1, num2);
+
+// function performing the calculation
+function operate(operation, num1, num2){
+    const firstNum = parseFloat(num1);
+    const secondNum = parseFloat(num2);
+
+    switch(operation){
+        case 'add': return add(firstNum, secondNum);
+        case 'substract': return substract(firstNum, secondNum);
+        case 'multiply': return multiply(firstNum, secondNum);
+        case 'divide': 
+            if (secondNum !== 0){
+                return divide(firstNum, secondNum);
+            }else{
+                alert("Can't divide by 0.");
+                return null;
+            }
+        default: return null;
     }
-}
+};
 
-const addBtn = document.querySelector(".add");
-const substrBtn = document.querySelector(".substr");
-const multBtn = document.querySelector(".multiply");
-const divideBtn = document.querySelector(".divide");
-const equalBtn = document.querySelector(".equal");
-const clearBtn = document.querySelector(".clear");
-const resultText = document.querySelector(".result-text");
 
-const numberBtn = document.querySelectorAll(".number");
-const btn = document.querySelectorAll(".btn");
+function getOperationName(op){
+    switch(op){
+        case '+': return 'add';
+        case '-': return 'substract';
+        case 'x': return 'multiply';
+        case '/': return 'divide';
+        default: return null;
+    }
+};
 
-const seven = document.querySelector(".seven");
-const eight = document.querySelector(".eight");
-const nine = document.querySelector(".nine");
-const four = document.querySelector(".four");
-const five = document.querySelector(".five");
-const six = document.querySelector(".six");
-const one = document.querySelector(".one");
-const two = document.querySelector(".two");
-const three = document.querySelector(".three");
 
-let operatorUsed = false;
+let num1 = '';
+let num2 = '';
+let currentOperator = '';
+let isNum2 = false;
+
 
 numberBtn.forEach(btn => {
     btn.onclick = () => {
-        resultText.textContent += btn.textContent;
-        if (resultText.textContent.length > 30) {
+        const num = btn.textContent;
+
+        // append input to display 
+        resultText.textContent += num;
+
+        // if the 2nd digit wasn't input, append to 1st digit
+        if (!isNum2){
+            num1 += num;
+        }else{
+            num2 += num;
+        }
+
+        // if the number of digits exceeds 30
+        if (num1.length > 30 || num2.length > 30) {
             alert("Number too big!");
             resultText.textContent = "";
+            num1 = '';
+            num2 = '';
+            currentOperator = '';
+            isNum2 = false;
         }
     }
 });
 
-function handleOperator (op){
-    if (!operatorUsed && resultText.textContent !== ''){
-        resultText.textContent += op;
-        operatorUsed = true;
-    }else{
-        console.log("Operator already used.");
+// function taking the 2 numbers(string) and performing the operation on them - wont allow to divide by 0
+function calculate(num1, num2, op){
+    let firstNum = parseFloat(num1);
+    let secondNum = parseFloat(num2);
+    const operation = getOperationName(op);
+
+    if (operation === 'divide' && secondNum === 0){
+        alert("Can't divide by 0");
+        return;
     }
+
+    return operate(operation, firstNum, secondNum);
 }
 
-addBtn.onlick = () => handleOperator('+');
-substrBtn.onlick = () => handleOperator('-');
-multBtn.onclick = () => handleOperator('*');
-divideBtn.onlick = () => handleOperator('/');
+
+operator.forEach(btn => {
+    btn.onclick = () => {
+        const lastChar = resultText.textContent.slice(-1);
+        const currentOp = btn.textContent;
+
+        // Only add the operator if the last char is not another operator
+        if (['+', '-', 'x', '/'].includes(lastChar)){
+            return;
+        }
+
+        if (num1 !== '' && currentOperator !== '' && num2 !== ''){
+            const result = calculate(num1, num2, currentOperator);
+
+            resultText.innerText = result + currentOp;
+
+            num1 = result.toString();
+            num2 = '';
+            currentOperator = currentOp;
+            isNum2 = true;
+        }else{
+            resultText.textContent += currentOp;
+            currentOperator = currentOp;
+            isNum2 = true;
+        }
+    };
+});
+
 
 clearBtn.onclick = () => {
     resultText.textContent = '';
+}
+
+equalBtn.onclick = () => {
+    const result = calculate(num1, num2, currentOperator);
+    resultText.textContent = result;
+
+    num1 = result.toString();
+    num2 = '';
+    currentOperator = '';
+    isNum2 = false;
 }
