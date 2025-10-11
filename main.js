@@ -11,7 +11,7 @@ function add(num1, num2){
     return num1 + num2;
 }
 
-function substract(num1, num2){
+function subtract(num1, num2){
     return num1 - num2;
 }
 
@@ -31,7 +31,7 @@ function operate(operation, num1, num2){
 
     switch(operation){
         case 'add': return add(firstNum, secondNum);
-        case 'substract': return substract(firstNum, secondNum);
+        case 'subtract': return subtract(firstNum, secondNum);
         case 'multiply': return multiply(firstNum, secondNum);
         case 'divide': 
             if (secondNum !== 0){
@@ -48,7 +48,7 @@ function operate(operation, num1, num2){
 function getOperationName(op){
     switch(op){
         case '+': return 'add';
-        case '-': return 'substract';
+        case '-': return 'subtract';
         case 'x': return 'multiply';
         case '/': return 'divide';
         default: return null;
@@ -88,19 +88,6 @@ numberBtn.forEach(btn => {
     }
 });
 
-// function taking the 2 numbers(string) and performing the operation on them - wont allow to divide by 0
-function calculate(num1, num2, op){
-    let firstNum = parseFloat(num1);
-    let secondNum = parseFloat(num2);
-    const operation = getOperationName(op);
-
-    if (operation === 'divide' && secondNum === 0){
-        alert("Can't divide by 0");
-        return;
-    }
-
-    return operate(operation, firstNum, secondNum);
-}
 
 
 operator.forEach(btn => {
