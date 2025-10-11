@@ -121,6 +121,10 @@ operator.forEach(btn => {
 
 clearBtn.onclick = () => {
     resultText.textContent = '';
+    num1 = '';
+    num2 = '';
+    currentOperator = '';
+    isNum2 = false;
 }
 
 equalBtn.onclick = () => {
