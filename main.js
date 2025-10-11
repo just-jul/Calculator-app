@@ -77,7 +77,7 @@ numberBtn.forEach(btn => {
         }
 
         // if the number of digits exceeds 30
-        if (num1.length > 30 || num2.length > 30) {
+        if (num1.length > 20 || num2.length > 20) {
             alert("Number too big!");
             resultText.textContent = "";
             num1 = '';
