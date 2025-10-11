@@ -128,7 +128,8 @@ clearBtn.onclick = () => {
 }
 
 equalBtn.onclick = () => {
-    const result = calculate(num1, num2, currentOperator);
+    const operation = getOperationName(currentOperator);
+    const result = operate(operation, num1, num2);
     resultText.textContent = result;
 
     num1 = result.toString();
