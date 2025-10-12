@@ -80,11 +80,7 @@ numberBtn.forEach(btn => {
         // if the number of digits exceeds 30
         if (num1.length > 20 || num2.length > 20) {
             alert("Number too big!");
-            resultText.textContent = "";
-            num1 = '';
-            num2 = '';
-            currentOperator = '';
-            isNum2 = false;
+            clearInput();
         }
     }
 });
@@ -120,7 +116,9 @@ operator.forEach(btn => {
 });
 
 
-clearBtn.onclick = () => {
+clearBtn.onclick = clearInput;
+
+function clearInput(){
     resultText.textContent = '';
     num1 = '';
     num2 = '';
@@ -153,3 +151,4 @@ backspace.onclick = () => {
         num2 = num2.slice(0, -1);
     }
 }
+
