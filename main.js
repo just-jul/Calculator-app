@@ -128,11 +128,16 @@ clearBtn.onclick = () => {
 }
 
 equalBtn.onclick = () => {
+    if (num1 === '' || currentOperator === '' || num2 === '') {
+        return; 
+    }
     const operation = getOperationName(currentOperator);
     const result = operate(operation, num1, num2);
-    resultText.textContent = result;
+    const roundedResult = parseFloat(result.toFixed(8));
+  
+    resultText.textContent = roundedResult;
 
-    num1 = result.toString();
+    num1 = roundedResult.toString();
     num2 = '';
     currentOperator = '';
     isNum2 = false;
