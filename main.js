@@ -1,6 +1,7 @@
 const equalBtn = document.querySelector(".equal");
 const clearBtn = document.querySelector(".clear");
 const resultText = document.querySelector(".result-text");
+const backspace = document.querySelector(".backspace");
 
 const numberBtn = document.querySelectorAll(".number");
 const btn = document.querySelectorAll(".btn");
@@ -141,4 +142,14 @@ equalBtn.onclick = () => {
     num2 = '';
     currentOperator = '';
     isNum2 = false;
+}
+
+backspace.onclick = () => {
+    resultText.textContent = resultText.textContent.slice(0, -1);
+
+    if (!isNum2){
+        num1 = num1.slice(0, -1);
+    }else{
+        num2 = num2.slice(0, -1);
+    }
 }
